@@ -69,9 +69,11 @@ lib/
 │   │   │   ├── login_viewmodel.dart
 │   │   │   └── register_viewmodel.dart
 │   │   ├── repositories/
-│   │   │   └── auth_repository.dart
-│   │   ├── services/
-│   │   │   └── auth_api_service.dart
+│   │   │   ├── auth_repository.dart
+│   │   │   └── auth_repository_impl.dart
+│   │   ├── data_sources/
+│   │   │   ├── auth_remote_data_source.dart
+│   │   │   └── auth_remote_data_source.g.dart
 │   │   ├── providers/
 │   │   │   └── auth_providers.dart
 │   │   └── widgets/
@@ -99,11 +101,11 @@ lib/
 
 - `core/`: Application-wide utilities, networking, routing, theme, constants, and reusable components.
 - `model/`: Shared data models organized by feature or domain. Never place all model classes directly inside one flat folder.
-- `features/`: Feature-specific UI, ViewModels, repositories, services, providers, and widgets.
+- `features/`: Feature-specific UI, ViewModels, repositories, data sources / services, providers, and widgets.
 - `views/`: Screens and UI composition.
 - `viewmodels/`: Presentation logic, UI state, input handling, and interactions with repositories.
-- `repositories/`: Data access coordination and conversion between data sources and application models.
-- `services/`: API calls and other external integrations.
+- `repositories/`: Data access coordination. Use abstract contract (`<feature>_repository.dart`) and concrete implementation (`<feature>_repository_impl.dart`).
+- `data_sources/` (or `services/`): API requests (Retrofit/Dio) and external or local data source integrations.
 - `providers/`: Riverpod provider declarations when they are kept separate from ViewModel files.
 - `widgets/`: Components specific to a feature.
 - `core/widgets/`: Reusable components shared across multiple features.
@@ -381,8 +383,9 @@ Follow these conventions:
 - Views: `login_view.dart`
 - ViewModels: `login_viewmodel.dart`
 - Models: `user_model.dart`
-- Repositories: `auth_repository.dart`
-- Services: `auth_api_service.dart`
+- Repositories: `auth_repository.dart` (abstract contract) and `auth_repository_impl.dart` (implementation)
+- Data Sources: `auth_remote_data_source.dart` (Retrofit/Dio) / `auth_local_data_source.dart`
+- Services: `auth_api_service.dart` / `quote_api_service.dart`
 - Shared components: `app_button.dart`
 - Providers: feature-specific, descriptive names
 

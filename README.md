@@ -11,9 +11,10 @@ The project adheres strictly to **MVVM Architecture** with feature-based modular
 - **Model:** Independent data models and JSON serialization (organized under `lib/model/`).
 - **View:** UI screens (`lib/features/<feature>/views/`) that listen to state with Riverpod `ConsumerWidget` and forward user interactions to the ViewModel.
 - **ViewModel:** Presentation logic and state holders (`lib/features/<feature>/viewmodels/`) built with Riverpod `Notifier` or `AsyncNotifier`, decoupled from widget layout.
-- **Repository & Service:** Abstract data access layers and network clients (Dio) handling remote APIs and local storage.
+- **Repository:** Abstract repository interfaces (`<feature>_repository.dart`) and implementations (`<feature>_repository_impl.dart`) coordinating remote and local data sources.
+- **Data Source:** Remote network clients (Retrofit & Dio) and local storage (SharedPreferences / Secure Storage) under `data_sources/` (or `services/`).
 - **Centralized Router:** Route definitions in `lib/core/router/route_names.dart` managed by a single GoRouter instance in `lib/core/router/app_router.dart`.
-- **Core Design System:** Reusable components, design tokens, and utilities stored in `lib/core/widgets/` and `lib/core/theme/`.
+- **Core Design System & Storage:** Reusable components, design tokens, and utilities stored in `lib/core/widgets/`, `lib/core/theme/`, and `lib/core/sp_service/`.
 
 ---
 
@@ -27,7 +28,8 @@ lib/
 │   ├── constants/                          # Global constants (dimensions, app strings)
 │   ├── errors/                             # Custom failure & exception models
 │   ├── extensions/                         # Dart & Flutter extension methods
-│   ├── network/                            # Dio HTTP client & API endpoints
+│   ├── network/                            # Dio HTTP client, interceptors, endpoints & WebSockets
+│   ├── sp_service/                         # SharedPreferences key-value & token storage
 │   ├── router/                             # GoRouter configuration & RouteNames
 │   │   ├── app_router.dart
 │   │   └── route_names.dart
@@ -53,8 +55,10 @@ lib/
     ├── auth/                               # Authentication (Login, Register)
     │   ├── views/
     │   ├── viewmodels/
-    │   ├── repositories/
-    │   └── services/
+    │   ├── repositories/                   # Abstract AuthRepository & AuthRepositoryImpl
+    │   ├── data_sources/                   # Retrofit AuthRemoteDataSource client
+    │   ├── providers/
+    │   └── widgets/
     ├── quote/                              # Quotes showcase & management
     │   ├── views/
     │   ├── viewmodels/
@@ -89,11 +93,13 @@ The project includes an in-app **Design System Showcase** (`/design-system`) for
 - **Framework:** [Flutter](https://flutter.dev/) (Channel stable)
 - **State Management:** [`flutter_riverpod`](https://pub.dev/packages/flutter_riverpod)
 - **Routing:** [`go_router`](https://pub.dev/packages/go_router)
-- **Networking:** [`dio`](https://pub.dev/packages/dio)
+- **Networking:** [`dio`](https://pub.dev/packages/dio) & [`retrofit`](https://pub.dev/packages/retrofit)
+- **WebSockets:** [`web_socket_channel`](https://pub.dev/packages/web_socket_channel)
 - **Responsive Layout:** [`flutter_screenutil`](https://pub.dev/packages/flutter_screenutil)
 - **Vector Graphics:** [`flutter_svg`](https://pub.dev/packages/flutter_svg)
 - **Image Caching:** [`cached_network_image`](https://pub.dev/packages/cached_network_image)
 - **Local Storage:** [`shared_preferences`](https://pub.dev/packages/shared_preferences)
+- **Code Generation:** [`build_runner`](https://pub.dev/packages/build_runner) & [`retrofit_generator`](https://pub.dev/packages/retrofit_generator)
 
 ---
 
