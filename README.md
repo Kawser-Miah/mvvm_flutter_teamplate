@@ -1,6 +1,6 @@
-# Guard Well
+# Flutter MVVM Architecture Template
 
-A modern, robust Flutter application engineered with **MVVM (Model-View-ViewModel)** architecture, powered by **Riverpod** state management, centralized **GoRouter** navigation, and responsive scaling via **ScreenUtil**.
+A modern, production-ready Flutter starter template engineered with **MVVM (Model-View-ViewModel)** architecture, powered by **Riverpod** state management, centralized **GoRouter** navigation, an in-app **Design System Component Gallery**, and responsive layout scaling via **ScreenUtil**.
 
 ---
 
@@ -109,8 +109,8 @@ The project includes an in-app **Design System Showcase** (`/design-system`) for
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
-   cd guard_well
+   git clone https://github.com/Kawser-Miah/mvvm_flutter_teamplate.git
+   cd mvvm_flutter_teamplate
    ```
 
 2. **Install dependencies:**
@@ -149,4 +149,4 @@ This prevents Kotlin compiler path root mismatch exceptions during Android build
 
 ## 📄 License
 
-This project is proprietary and confidential.
+This template is open-source and available under the [MIT License](LICENSE).
