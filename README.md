@@ -138,7 +138,11 @@ Future<Result<void>> logout() => guard(() async {
 
 Branch with `failure.isNetworkError` / `failure.isUnauthorized`. In view-models, `result.getOrThrow()` inside `AsyncValue.guard` turns a `Failure` into an `AppException` whose `toString()` is the friendly message.
 
-**Auth rule:** a 2xx login/register response **without a token is rejected** (`'Invalid response from server.'`). Tokens (secure storage) and the user (SpService) are persisted only after that check.
+**Auth rule:** a 2xx login/register response **without a token is rejected** (`'Invalid response from server.'`). Tokens (secure storage) and the user (SpService) are persisted only after that check. Expected body (adjust `AuthResponseModel.fromJson` to your backend):
+
+```json
+{ "token": "<access>", "refresh_token": "<refresh, optional>", "user": { "id": "1", "email": "a@b.co", "name": "Ann" } }
+```
 
 ### Dio client
 
@@ -197,6 +201,10 @@ AppRouter.router.go(…);               // context-free
   }
   ```
 - `debugLogDiagnostics` is on only in `kDebugMode`.
+
+> ⚠️ **Temporary login bypass (active).** The **Sign In** button currently skips validation and the API and calls `context.go(PAGES.home.screenPath)` directly, so you can reach the app without a backend. Because no token is saved, a cold start always opens on Login, and the quotes list on home shows an error with Retry unless `BASE_URL` points at a real API.
+>
+> **To re-enable real sign-in:** in `lib/features/auth/widgets/login_form.dart`, `_onLogin()`, delete the `context.go(...)` line and uncomment the block below it (form validation + `loginViewModelProvider.notifier.login(...)`). `LoginView` already navigates to home when the login succeeds.
 
 ---
 
