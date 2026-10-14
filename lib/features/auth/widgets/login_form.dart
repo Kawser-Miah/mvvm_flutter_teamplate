@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import '../../../core/router/pages.dart';
 import '../../../core/utils/validators.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_text_field.dart';
@@ -25,13 +27,18 @@ class _LoginFormState extends ConsumerState<LoginForm> {
     super.dispose();
   }
 
+  // TEMPORARY LOGIN BYPASS: skips validation and the API call and goes
+  // straight to home. No token is stored, so the next cold start opens on
+  // login again. Restore the commented block to re-enable real sign-in.
   void _onLogin() {
-    if (_formKey.currentState?.validate() ?? false) {
-      ref.read(loginViewModelProvider.notifier).login(
-            _emailController.text.trim(),
-            _passwordController.text,
-          );
-    }
+    context.go(PAGES.home.screenPath);
+
+    // if (_formKey.currentState?.validate() ?? false) {
+    //   ref.read(loginViewModelProvider.notifier).login(
+    //         _emailController.text.trim(),
+    //         _passwordController.text,
+    //       );
+    // }
   }
 
   @override
