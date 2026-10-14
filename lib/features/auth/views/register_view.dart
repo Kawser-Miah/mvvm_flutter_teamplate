@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/router/route_names.dart';
+import '../../../core/router/pages.dart';
 import '../../../core/theme/app_text_styles.dart';
+import '../../../core/utils/validators.dart';
 import '../../../core/widgets/app_app_bar.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_text_field.dart';
@@ -48,7 +49,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
       next.whenOrNull(
         data: (user) {
           if (user != null) {
-            context.go(RouteNames.quotes);
+            context.go(PAGES.home.screenPath);
           }
         },
         error: (error, stack) {
@@ -76,18 +77,24 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                   style: AppTextStyles.body,
                 ),
                 SizedBox(height: 32.h),
-                AppTextField(label: 'Full Name', controller: _nameController),
+                AppTextField(
+                  label: 'Full Name',
+                  controller: _nameController,
+                  validator: (v) => Validators.required(v, field: 'Name'),
+                ),
                 SizedBox(height: 16.h),
                 AppTextField(
                   label: 'Email',
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
+                  validator: Validators.email,
                 ),
                 SizedBox(height: 16.h),
                 AppTextField(
                   label: 'Password',
                   controller: _passwordController,
                   obscureText: true,
+                  validator: Validators.password,
                 ),
                 SizedBox(height: 24.h),
                 AppButton(

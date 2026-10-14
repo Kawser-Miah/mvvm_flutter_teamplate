@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:guard_well/core/utils/app_colors.dart';
+import 'package:guard_well/core/theme/app_colors.dart';
 
 /// Helper to pick images from gallery, with optional cropping disabled by default.
 Future<File?> customImagePicker({

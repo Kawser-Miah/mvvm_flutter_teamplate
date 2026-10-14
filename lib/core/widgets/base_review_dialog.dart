@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
-import '../utils/app_colors.dart';
-import '../utils/app_texts.dart';
-import '../utils/custom_snackbar.dart';
+import '../theme/app_colors.dart';
+import '../constants/app_texts.dart';
+import 'custom_snackbar.dart';
 import 'custom_button.dart';
 import 'custom_text_field.dart';
 import 'star_rating_row.dart';

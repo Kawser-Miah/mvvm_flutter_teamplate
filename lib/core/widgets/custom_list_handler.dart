@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:guard_well/core/utils/app_colors.dart';
+import 'package:guard_well/core/theme/app_colors.dart';
 import 'package:guard_well/core/widgets/custom_loading.dart';
 
 class CustomListHandler extends StatelessWidget {
@@ -67,7 +67,7 @@ class CustomListHandler extends StatelessWidget {
         return false;
       },
       child: isLoading
-          ? Center(child: CustomLoading())
+          ? const Center(child: CustomLoading())
           : reverse
           ? getChild() ?? getChildren()
           : RefreshIndicator(
@@ -113,7 +113,7 @@ class CustomListHandler extends StatelessWidget {
             );
           }
           if (isLoadingMore) {
-            return Center(child: CustomLoading());
+            return const Center(child: CustomLoading());
           }
           return SafeArea(
             child: Center(

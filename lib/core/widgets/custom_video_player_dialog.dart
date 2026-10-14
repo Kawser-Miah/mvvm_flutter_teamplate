@@ -1,5 +1,7 @@
+import 'dart:async';
+
 import 'dart:io';
-import 'package:guard_well/core/utils/app_colors.dart';
+import 'package:guard_well/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -71,7 +73,7 @@ class _CustomVideoPlayerDialogState extends State<CustomVideoPlayerDialog> {
       await _controller!.initialize();
       if (mounted) {
         setState(() => _isInitialized = true);
-        _controller!.play();
+        unawaited(_controller!.play());
       }
     } catch (_) {
       if (mounted) {

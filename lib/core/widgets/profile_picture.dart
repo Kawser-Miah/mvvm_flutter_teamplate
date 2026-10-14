@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:guard_well/core/utils/app_colors.dart';
-import 'package:guard_well/core/utils/app_icons.dart';
-import 'package:guard_well/core/utils/custom_image_picker.dart';
-import 'package:guard_well/core/utils/custom_svg.dart';
+import 'package:guard_well/core/theme/app_colors.dart';
+import 'package:guard_well/core/constants/app_icons.dart';
+import 'package:guard_well/core/widgets/custom_image_picker.dart';
+import 'package:guard_well/core/widgets/custom_svg.dart';
 import 'package:guard_well/core/widgets/custom_networked_image.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 

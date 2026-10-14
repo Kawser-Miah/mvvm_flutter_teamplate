@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
-import '../utils/app_texts.dart';
-import '../utils/custom_svg.dart';
+import '../constants/app_texts.dart';
+import 'custom_svg.dart';
 
 class BillingBadge extends StatelessWidget {
   final String label;

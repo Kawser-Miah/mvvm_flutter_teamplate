@@ -1,20 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import '../../sp_service/secure_storage_service.dart';
+import '../../secure_storage_service/secure_storage_service.dart';
 import '../api_endpoints.dart';
 
+/// Token access for [WebSocketClient] URL builders and its 4001
+/// (token expired) refresh callback.
 class WebSocketTokenHelper {
   final SecureStorageService _storageService;
 
   WebSocketTokenHelper(this._storageService);
 
-  Future<String?> getAccessToken() async {
-    return await _storageService.getAccessToken();
-  }
+  Future<String?> getAccessToken() => _storageService.read(SecureKey.accessToken);
 
   Future<String?> refreshAccessToken() async {
     try {
-      final refreshToken = await _storageService.getRefreshToken();
+      final refreshToken = await _storageService.read(SecureKey.refreshToken);
       if (refreshToken == null || refreshToken.isEmpty) {
         debugPrint('[WebSocketTokenHelper] No refresh token found.');
         return null;
@@ -50,9 +50,9 @@ class WebSocketTokenHelper {
             ?.toString();
 
         if (newAccessToken != null && newAccessToken.isNotEmpty) {
-          await _storageService.saveAccessToken(newAccessToken);
+          await _storageService.write(newAccessToken, SecureKey.accessToken);
           if (newRefreshToken != null && newRefreshToken.isNotEmpty) {
-            await _storageService.saveRefreshToken(newRefreshToken);
+            await _storageService.write(newRefreshToken, SecureKey.refreshToken);
           }
           debugPrint('[WebSocketTokenHelper] Tokens refreshed successfully.');
           return newAccessToken;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:guard_well/core/utils/app_colors.dart';
-import 'package:guard_well/core/utils/app_texts.dart';
+import 'package:guard_well/core/theme/app_colors.dart';
+import 'package:guard_well/core/constants/app_texts.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 // ──────────────────────────────────────────────
@@ -10,7 +10,7 @@ double get _flagWidth => 24.w;
 double get _flagHeight => 18.h;
 double get _flagRadius => 3.r;
 double get _chevronSize => 18.r;
-final _chevronColor = AppColors.black;
+const _chevronColor = AppColors.black;
 final _textStyle = AppTexts.txsr;
 double get _itemSpacing => 6.w;
 // ──────────────────────────────────────────────

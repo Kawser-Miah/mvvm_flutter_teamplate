@@ -7,6 +7,9 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 typedef TokenRefreshCallback = Future<String?> Function();
 typedef UrlBuilder = Future<String?> Function();
 
+/// Generic JSON WebSocket: 30s ping, exponential-backoff reconnect (max 30s),
+/// token refresh on close code 4001, events on a broadcast [stream].
+/// Holds no app logic and no Riverpod; feature services wrap it.
 class WebSocketClient {
   final String debugName;
   final UrlBuilder urlBuilder;
@@ -71,20 +74,20 @@ class WebSocketClient {
         onError: (err) {
           debugPrint('[$debugName] Error: $err');
           onError?.call(err.toString());
-          _handleDisconnect();
+          unawaited(_handleDisconnect());
         },
         onDone: () {
           final closeCode = _channel?.closeCode;
           debugPrint('[$debugName] Closed (code: $closeCode)');
           if (!_isManualDisconnect) onClosed?.call(closeCode);
-          _handleDisconnect(closeCode: closeCode);
+          unawaited(_handleDisconnect(closeCode: closeCode));
         },
         cancelOnError: true,
       );
     } catch (e) {
       debugPrint('[$debugName] Connection failed: $e');
       onError?.call(e.toString());
-      _handleDisconnect();
+      unawaited(_handleDisconnect());
     }
   }
 
@@ -122,10 +125,10 @@ class WebSocketClient {
     });
   }
 
-  void _handleDisconnect({int? closeCode}) async {
+  Future<void> _handleDisconnect({int? closeCode}) async {
     _isConnected = false;
     _pingTimer?.cancel();
-    _subscription?.cancel();
+    unawaited(_subscription?.cancel());
     _subscription = null;
 
     if (_isManualDisconnect || closeCode == 4003) return;
@@ -134,7 +137,7 @@ class WebSocketClient {
       try {
         final newToken = await onRefreshToken!();
         if (newToken != null && newToken.isNotEmpty) {
-          connect(isReconnect: true);
+          unawaited(connect(isReconnect: true));
           return;
         }
         onError?.call('Session expired. Please sign in again.');
@@ -149,7 +152,7 @@ class WebSocketClient {
     final delay = min(pow(2, _reconnectAttempts - 1).toInt(), 30);
     _reconnectTimer?.cancel();
     _reconnectTimer = Timer(Duration(seconds: delay), () {
-      if (!_isManualDisconnect) connect(isReconnect: true);
+      if (!_isManualDisconnect) unawaited(connect(isReconnect: true));
     });
   }
 
@@ -158,7 +161,7 @@ class WebSocketClient {
     _isConnected = false;
     _pingTimer?.cancel();
     _reconnectTimer?.cancel();
-    _subscription?.cancel();
+    unawaited(_subscription?.cancel());
     _subscription = null;
     try {
       await _channel?.sink.close();
@@ -167,7 +170,7 @@ class WebSocketClient {
   }
 
   void dispose() {
-    disconnect();
-    _eventController.close();
+    unawaited(disconnect());
+    unawaited(_eventController.close());
   }
 }

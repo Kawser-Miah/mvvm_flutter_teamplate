@@ -193,7 +193,7 @@ class Formatter {
   static String maskPhone(String phone) {
     if (phone.length < 7) return phone;
     final start = phone.substring(0, phone.length - 7);
-    final middle = "****";
+    const middle = "****";
     final end = phone.substring(phone.length - 3);
     return "$start$middle$end";
   }

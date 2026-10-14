@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/language_model.dart';
-import '../utils/app_constants.dart';
-import 'theme_controller.dart';
+import '../../model/common/language_model.dart';
+import '../constants/app_constants.dart';
+import '../services/sp_service/sp_service.dart';
 
 class LocalizationState {
   final Locale locale;
@@ -39,10 +39,10 @@ final localizationProvider =
 class LocalizationController extends Notifier<LocalizationState> {
   @override
   LocalizationState build() {
-    final prefs = ref.watch(sharedPreferencesProvider);
-    final langCode = prefs.getString(AppConstants.LANGUAGE_CODE) ??
+    final sp = ref.watch(spServiceProvider);
+    final langCode = sp.read<String>(StorageKey.languageCode) ??
         AppConstants.languages[0].languageCode;
-    final countryCode = prefs.getString(AppConstants.COUNTRY_CODE) ??
+    final countryCode = sp.read<String>(StorageKey.countryCode) ??
         AppConstants.languages[0].countryCode;
 
     final loc = Locale(langCode, countryCode);
@@ -69,25 +69,19 @@ class LocalizationController extends Notifier<LocalizationState> {
   List<LanguageModel> get languages => state.languages;
   int get selectedIndex => state.selectedIndex;
 
-  void setLanguage(Locale locale) {
+  Future<void> setLanguage(Locale locale) async {
     final isLtr = locale.languageCode != 'ar';
-    saveLanguage(locale);
     state = state.copyWith(
       locale: locale,
       isLtr: isLtr,
     );
+    await saveLanguage(locale);
   }
 
-  void saveLanguage(Locale locale) {
-    final prefs = ref.read(sharedPreferencesProvider);
-    prefs.setString(
-      AppConstants.LANGUAGE_CODE,
-      locale.languageCode,
-    );
-    prefs.setString(
-      AppConstants.COUNTRY_CODE,
-      locale.countryCode ?? "",
-    );
+  Future<void> saveLanguage(Locale locale) async {
+    final sp = ref.read(spServiceProvider);
+    await sp.write(locale.languageCode, StorageKey.languageCode);
+    await sp.write(locale.countryCode ?? '', StorageKey.countryCode);
   }
 
   void setSelectIndex(int index) {

@@ -1,14 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/network/dio_client.dart';
+import '../../../core/services/network/dio_client.dart';
+import '../data_sources/quote_remote_data_source.dart';
 import '../repositories/quote_repository.dart';
-import '../services/quote_api_service.dart';
 
-final quoteApiServiceProvider = Provider<QuoteApiService>((ref) {
-  final dioClient = ref.read(dioClientProvider);
-  return QuoteApiService(dioClient.dio);
+final quoteRemoteDataSourceProvider = Provider<QuoteRemoteDataSource>((ref) {
+  return QuoteRemoteDataSource(ref.watch(dioClientProvider).dio);
 });
 
 final quoteRepositoryProvider = Provider<QuoteRepository>((ref) {
-  final apiService = ref.read(quoteApiServiceProvider);
-  return QuoteRepository(apiService);
+  return QuoteRepository(ref.watch(quoteRemoteDataSourceProvider));
 });

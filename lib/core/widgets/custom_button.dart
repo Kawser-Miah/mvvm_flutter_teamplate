@@ -1,7 +1,7 @@
-import 'package:guard_well/core/utils/app_colors.dart';
+import 'package:guard_well/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:guard_well/core/utils/app_texts.dart';
+import 'package:guard_well/core/constants/app_texts.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 // ──────────────────────────────────────────────
@@ -10,8 +10,8 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 // Primary button colors
 final _primaryDisabledColor = AppColors.black.shade300;
-final _primaryTextColor = AppColors.white;
-final _primaryIconColor = AppColors.white;
+const _primaryTextColor = AppColors.white;
+const _primaryIconColor = AppColors.white;
 final _primaryLoaderColor = AppColors.black[50]!;
 
 // Primary button gradient (linear-gradient(89.58deg, #048150 5.15%, #0D553D 33.6%))

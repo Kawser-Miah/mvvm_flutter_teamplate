@@ -20,14 +20,13 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
 
   final ParseErrorLogger? errorLogger;
 
-  @override
-  Future<AuthResponseModel> login(LoginRequestModel request) async {
+  Future<AuthResponseModel> _login(LoginRequestModel request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(request.toJson());
-    final _options = _setStreamType<AuthResponseModel>(
+    final _options = _setStreamType<Result<AuthResponseModel>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -49,13 +48,17 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   }
 
   @override
-  Future<AuthResponseModel> register(Map<String, dynamic> data) async {
+  Future<Result<AuthResponseModel>> login(LoginRequestModel request) {
+    return ResultCallAdapter<AuthResponseModel>().adapt(() => _login(request));
+  }
+
+  Future<AuthResponseModel> _register(Map<String, dynamic> data) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(data);
-    final _options = _setStreamType<AuthResponseModel>(
+    final _options = _setStreamType<Result<AuthResponseModel>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -74,6 +77,11 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
       rethrow;
     }
     return _value;
+  }
+
+  @override
+  Future<Result<AuthResponseModel>> register(Map<String, dynamic> data) {
+    return ResultCallAdapter<AuthResponseModel>().adapt(() => _register(data));
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

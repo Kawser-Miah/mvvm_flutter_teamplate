@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/app_texts.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/constants/app_texts.dart';
 import '../../../core/widgets/app_text_field.dart';
 import '../../../core/widgets/country_code_selector.dart';
 import '../../../core/widgets/custom_text_field.dart';

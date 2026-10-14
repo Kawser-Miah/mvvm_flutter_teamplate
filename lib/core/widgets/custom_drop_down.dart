@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:guard_well/core/utils/app_colors.dart';
-import 'package:guard_well/core/utils/app_icons.dart';
-import 'package:guard_well/core/utils/app_texts.dart';
+import 'package:guard_well/core/theme/app_colors.dart';
+import 'package:guard_well/core/constants/app_icons.dart';
+import 'package:guard_well/core/constants/app_texts.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 // Sizing defaults

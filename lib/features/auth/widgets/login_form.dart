@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../core/utils/validators.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_text_field.dart';
 import '../viewmodels/login_viewmodel.dart';
@@ -45,12 +46,14 @@ class _LoginFormState extends ConsumerState<LoginForm> {
             label: 'Email',
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
+            validator: Validators.email,
           ),
           SizedBox(height: 16.h),
           AppTextField(
             label: 'Password',
             controller: _passwordController,
             obscureText: true,
+            validator: Validators.password,
           ),
           SizedBox(height: 24.h),
           AppButton(

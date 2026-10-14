@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/app_texts.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/constants/app_texts.dart';
 
 class ComponentSectionCard extends StatelessWidget {
   final String title;

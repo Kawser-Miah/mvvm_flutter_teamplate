@@ -1,16 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../model/auth/auth_response_model.dart';
 import '../../../model/auth/login_request_model.dart';
+import '../../../model/auth/user_model.dart';
 import '../providers/auth_providers.dart';
 
 final loginViewModelProvider =
-    AsyncNotifierProvider<LoginViewModel, AuthResponseModel?>(
+    AsyncNotifierProvider<LoginViewModel, UserModel?>(
   LoginViewModel.new,
 );
 
-class LoginViewModel extends AsyncNotifier<AuthResponseModel?> {
+class LoginViewModel extends AsyncNotifier<UserModel?> {
   @override
-  Future<AuthResponseModel?> build() async {
+  Future<UserModel?> build() async {
     return null;
   }
 
@@ -18,9 +18,10 @@ class LoginViewModel extends AsyncNotifier<AuthResponseModel?> {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final repository = ref.read(authRepositoryProvider);
-      return repository.login(
+      final result = await repository.login(
         LoginRequestModel(email: email, password: password),
       );
+      return result.getOrThrow();
     });
   }
 }

@@ -1,7 +1,24 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 
-class ApiErrorHandler {
+import '../../errors/result.dart';
+
+/// The one place that turns a [DioException] into user-facing text.
+/// Used by `guard()` (and therefore by `ResultCallAdapter`).
+abstract final class ApiErrorHandler {
+  /// Classifies the error so callers can branch on it (see [ErrorKind]).
+  static ErrorKind kindOf(DioException error) => switch (error.type) {
+        DioExceptionType.connectionTimeout ||
+        DioExceptionType.sendTimeout ||
+        DioExceptionType.receiveTimeout ||
+        DioExceptionType.connectionError =>
+          ErrorKind.network,
+        DioExceptionType.badResponse when error.response?.statusCode == 401 =>
+          ErrorKind.unauthorized,
+        DioExceptionType.badResponse => ErrorKind.server,
+        _ => ErrorKind.unknown,
+      };
+
   static (String, dynamic) handleDioError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
@@ -18,8 +35,10 @@ class ApiErrorHandler {
       case DioExceptionType.cancel:
         return ('Request cancelled', null);
 
+      // error.message is developer text (e.g. "SocketException: ..."), never
+      // shown to users.
       default:
-        return (error.message ?? 'An unexpected error occurred', null);
+        return ('Something went wrong. Please try again.', null);
     }
   }
 

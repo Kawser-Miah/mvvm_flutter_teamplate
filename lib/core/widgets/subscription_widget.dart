@@ -1,6 +1,6 @@
-import 'package:guard_well/core/utils/app_colors.dart';
-import 'package:guard_well/core/utils/app_icons.dart';
-import 'package:guard_well/core/utils/app_texts.dart';
+import 'package:guard_well/core/theme/app_colors.dart';
+import 'package:guard_well/core/constants/app_icons.dart';
+import 'package:guard_well/core/constants/app_texts.dart';
 import 'package:guard_well/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -22,7 +22,7 @@ const _iconBoxRadius = 16.0;
 // Title colors
 final _premiumTitleColor = AppColors.black[50]!;
 final _normalTitleColor = AppColors.black.shade200;
-final _premiumSubtitleColor = AppColors.black;
+const _premiumSubtitleColor = AppColors.black;
 final _normalSubtitleColor = AppColors.black[50]!;
 
 // Feature list colors
@@ -103,7 +103,7 @@ class SubscriptionWidget extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               left: _headerHorizontalPadding,
               right: _headerHorizontalPadding,
               top: _headerTopPadding,
@@ -152,7 +152,7 @@ class SubscriptionWidget extends StatelessWidget {
           ),
           const SizedBox(height: _featuresTopSpacing),
           Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: _featuresHorizontalPadding,
             ),
             child: Column(

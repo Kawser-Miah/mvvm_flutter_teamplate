@@ -11,7 +11,7 @@ class QuoteViewModel extends AsyncNotifier<List<QuoteModel>> {
   @override
   Future<List<QuoteModel>> build() async {
     final repository = ref.read(quoteRepositoryProvider);
-    return repository.getQuotes();
+    return (await repository.getQuotes()).getOrThrow();
   }
 
   Future<void> refreshQuotes() async {
@@ -19,7 +19,7 @@ class QuoteViewModel extends AsyncNotifier<List<QuoteModel>> {
 
     state = await AsyncValue.guard(() async {
       final repository = ref.read(quoteRepositoryProvider);
-      return repository.getQuotes();
+      return (await repository.getQuotes()).getOrThrow();
     });
   }
 }

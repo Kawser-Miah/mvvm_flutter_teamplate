@@ -1,12 +1,13 @@
+import '../../../core/errors/result.dart';
 import '../../../model/quote/quote_model.dart';
-import '../services/quote_api_service.dart';
+import '../data_sources/quote_remote_data_source.dart';
 
 class QuoteRepository {
-  final QuoteApiService _apiService;
+  final QuoteRemoteDataSource _remoteDataSource;
 
-  QuoteRepository(this._apiService);
+  QuoteRepository(this._remoteDataSource);
 
-  Future<List<QuoteModel>> getQuotes() {
-    return _apiService.getQuotes();
+  Future<Result<List<QuoteModel>>> getQuotes() {
+    return _remoteDataSource.getQuotes();
   }
 }

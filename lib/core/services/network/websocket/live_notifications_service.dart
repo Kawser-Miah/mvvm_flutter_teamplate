@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../sp_service/secure_storage_service.dart';
+import '../../secure_storage_service/secure_storage_service.dart';
 import '../api_endpoints.dart';
 import 'active_chat_tracker.dart';
 import 'websocket_client.dart';
@@ -40,7 +40,7 @@ class LiveNotificationsService {
 
   Future<void> init() async {
     if (_isStarted) return;
-    final token = await storageService.getAccessToken();
+    final token = await storageService.read(SecureKey.accessToken);
     if (token == null || token.isEmpty) {
       debugPrint('[LiveNotifications] No access token. Waiting for sign in.');
       return;
@@ -58,7 +58,7 @@ class LiveNotificationsService {
       urlBuilder: () async {
         final token = await tokenHelper.getAccessToken();
         if (token == null || token.isEmpty) return null;
-        return ApiEndpoints.wsNotificationsUrl(token);
+        return ApiEndpoints.wsUrl('ws/notifications/', token);
       },
       onRefreshToken: () => tokenHelper.refreshAccessToken(),
       onConnected: () {

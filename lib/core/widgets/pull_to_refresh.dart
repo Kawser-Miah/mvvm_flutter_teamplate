@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:guard_well/core/utils/app_colors.dart';
+import 'package:guard_well/core/theme/app_colors.dart';
 
 // ──────────────────────────────────────────────
 // CUSTOMIZABLE VARIABLES — Change these to style
@@ -88,7 +88,7 @@ class PullToRefreshState extends State<PullToRefresh> {
               opacity: getOpacity,
               child: SafeArea(
                 child: Container(
-                  padding: EdgeInsets.all(_indicatorPadding),
+                  padding: const EdgeInsets.all(_indicatorPadding),
                   height: _iconSize,
                   width: _iconSize,
                   decoration: BoxDecoration(

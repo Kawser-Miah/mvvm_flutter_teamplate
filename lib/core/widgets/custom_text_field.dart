@@ -1,8 +1,8 @@
-import 'package:guard_well/core/utils/app_colors.dart';
-import 'package:guard_well/core/utils/app_icons.dart';
+import 'package:guard_well/core/theme/app_colors.dart';
+import 'package:guard_well/core/constants/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:guard_well/core/utils/app_texts.dart';
+import 'package:guard_well/core/constants/app_texts.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 // ──────────────────────────────────────────────
@@ -35,7 +35,7 @@ final _titleStyle = AppTexts.tmdr;
 
 // Input text
 final _inputStyle = AppTexts.txsr;
-final _hintColor = AppColors.textPrimary;
+const _hintColor = AppColors.textPrimary;
 
 // Error text
 double get _errorHorizontalPadding => 24.w;

@@ -1,5 +1,5 @@
-import 'package:guard_well/core/utils/app_colors.dart';
-import 'package:guard_well/core/utils/app_texts.dart';
+import 'package:guard_well/core/theme/app_colors.dart';
+import 'package:guard_well/core/constants/app_texts.dart';
 import 'package:guard_well/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';

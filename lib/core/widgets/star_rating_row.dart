@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
-import '../utils/app_colors.dart';
-import '../utils/app_icons.dart';
-import '../utils/custom_svg.dart';
+import '../theme/app_colors.dart';
+import '../constants/app_icons.dart';
+import 'custom_svg.dart';
 
 class StarRatingRow extends StatelessWidget {
   final int rating;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/router/route_names.dart';
+import '../../../core/router/pages.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../core/widgets/app_app_bar.dart';
 import '../viewmodels/login_viewmodel.dart';
@@ -17,7 +17,7 @@ class LoginView extends ConsumerWidget {
       next.whenOrNull(
         data: (user) {
           if (user != null) {
-            context.go(RouteNames.quotes);
+            context.go(PAGES.home.screenPath);
           }
         },
         error: (error, stack) {
@@ -47,7 +47,7 @@ class LoginView extends ConsumerWidget {
               SizedBox(height: 16.h),
               Center(
                 child: TextButton(
-                  onPressed: () => context.push(RouteNames.register),
+                  onPressed: () => context.push(PAGES.register.screenPath),
                   child: const Text('Don\'t have an account? Sign Up'),
                 ),
               ),

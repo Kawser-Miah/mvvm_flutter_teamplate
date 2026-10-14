@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:guard_well/core/utils/app_colors.dart';
-import 'package:guard_well/core/utils/app_texts.dart';
+import 'package:guard_well/core/theme/app_colors.dart';
+import 'package:guard_well/core/constants/app_texts.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import 'back_pill.dart';
@@ -11,8 +11,8 @@ import 'back_pill.dart';
 
 // Colors
 const _backgroundColor = AppColors.scaffoldBackgroundColor;
-final _titleColor = AppColors.textPrimary;
-final _dividerColor = Colors.transparent;
+const _titleColor = AppColors.textPrimary;
+const _dividerColor = Colors.transparent;
 
 // Sizing
 double get _appBarHeight => 44.h;
@@ -54,7 +54,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(width: _leadingStartPadding),
-            if (hasLeading) BackPill(),
+            if (hasLeading) const BackPill(),
             SizedBox(width: _titleLeftPadding),
             Expanded(
               child: Text(
